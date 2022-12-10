@@ -40,7 +40,7 @@ def line_data(url):
             url_suffix = post.select("a")[0].attrs["href"]
             line_post_url = url_prefix + url_suffix
 
-            content = f"<a href={line_post_url}" + line_post_title + "</a>" + "<br/>\n"
+            content = f"<a href={line_post_url}>" + line_post_title + "</a>" + "<br/>\n"
         
         line_contents += content
     
@@ -55,7 +55,7 @@ def carrot_data(soup):
         carrot_url = post.select("a")[0].attrs['data-action-value']
         carrot_post_title = post.select("a")[0].select('.u-textScreenReader')[0].text
         
-        content = f"<a href={carrot_url}" + carrot_post_title + "</a>" +"</br>\n"
+        content = f"<a href={carrot_url}>" + carrot_post_title + "</a>" +"</br>\n"
         carrot_contents += content
 
     return carrot_contents
@@ -73,7 +73,7 @@ def kurly_data(soup):
         url_suffix = post.attrs['href']
         url = url_prefix+url_suffix
 
-        content = f"<a href={url}" + kurly_post_title + "</a>" + "</br>\n"
+        content = f"<a href={url}>" + kurly_post_title + "</a>" + "</br>\n"
         kurly_contents += content
 
     return kurly_contents
