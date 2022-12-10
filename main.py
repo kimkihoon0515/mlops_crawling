@@ -40,4 +40,5 @@ if __name__ == "__main__":
 
     repo = get_github_repo(access_token, repository_name)
     upload_github_issue(repo, issue_title, blog_contents)
+    print(blog_contents)
     print("Upload Github Issue Success!")

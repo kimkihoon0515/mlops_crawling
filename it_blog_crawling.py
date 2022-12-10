@@ -12,7 +12,7 @@ def parsing_beautifulsoup(url):
 def kakao_data(soup):
 
     upload_contents = '[kakao]\n'
-    kakao_posts = soup.select(".elementor-post_title")
+    kakao_posts = soup.select(".elementor-post__title")
 
     for post in kakao_posts:
         post_title = post.select("a")[0].text.strip()
