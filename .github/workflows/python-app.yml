@@ -1,4 +1,4 @@
-name: yes24_crawler
+name: it_blog_crawler
 
 on:
   schedule:
