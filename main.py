@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from pytz import timezone
-from crawling_yes24 import parsing_beautifulsoup, extract_book_data
+from it_blog_crawling import parsing_beautifulsoup, kakao_data, line_data, carrot_data, kurly_data
 from github_utils import get_github_repo, upload_github_issue
 
 
@@ -13,12 +13,31 @@ if __name__ == "__main__":
     today = datetime.now(seoul_timezone)
     today_date = today.strftime("%Y년 %m월 %d일")
 
-    yes24_it_new_product_url = "http://www.yes24.com/24/Category/NewProductList/001001003?sumGb=01"
+    kakao_url = "https://tech.kakao.com/blog/#posts"    
+    kakao_soup = parsing_beautifulsoup(kakao_url)
+
+    line_url = "https://engineering.linecorp.com/ko/blog/"
+
+    carrot_url = "https://medium.com/daangn"
+    carrot_soup = parsing_beautifulsoup(carrot_url)
+
+    kurly_url = "https://helloworld.kurly.com/"
+    kurly_soup = parsing_beautifulsoup(kurly_url)
+
+    blog_contents = ''
     
-    soup = parsing_beautifulsoup(yes24_it_new_product_url)
-    
-    issue_title = f"YES24 IT 신간 도서 알림({today_date})"
-    upload_contents = extract_book_data(soup)
+    issue_title = f"IT 개발블로그 모음집({today_date})"
+    blog_contents += kakao_data(kakao_soup)
+    blog_contents += '\n'
+
+    blog_contents += line_data(line_url)
+    blog_contents += '\n'
+
+    blog_contents += carrot_data(carrot_soup)
+    blog_contents += '\n'
+
+    blog_contents += kurly_data(kurly_soup)
+
     repo = get_github_repo(access_token, repository_name)
-    upload_github_issue(repo, issue_title, upload_contents)
+    upload_github_issue(repo, issue_title, blog_contents)
     print("Upload Github Issue Success!")
