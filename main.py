@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 from pytz import timezone
-from it_blog_crawling import parsing_beautifulsoup, kakao_data, line_data, aws_data, kurly_data
+from it_blog_crawling import parsing_beautifulsoup, kakao_data, line_data, aws_data, kurly_data, clova_data
 from github_utils import get_github_repo, upload_github_issue
 
 
@@ -18,6 +18,9 @@ if __name__ == "__main__":
 
     line_url = "https://engineering.linecorp.com/ko/blog/"
 
+    clova_url = "https://engineering.clova.ai/"
+    clova_soup = parsing_beautifulsoup(clova_url)
+
     aws_url = "https://aws.amazon.com/ko/blogs/tech/"
     aws_soup = parsing_beautifulsoup(aws_url)
 
@@ -31,6 +34,9 @@ if __name__ == "__main__":
     blog_contents += '\n'
 
     blog_contents += line_data(line_url)
+    blog_contents += '\n'
+
+    blog_contents+= clova_data(clova_soup)
     blog_contents += '\n'
 
     blog_contents += aws_data(aws_soup)

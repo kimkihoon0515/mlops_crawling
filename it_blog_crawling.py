@@ -77,3 +77,23 @@ def aws_data(soup):
         aws_contents += content
 
     return aws_contents
+
+def clova_data(soup):
+
+    clova_posts = soup.select(".RecentPosts_recent_item__AdEEZ")
+
+    prefix_url = "https://engineering.clova.ai"
+
+    clova_contents = '[네이버 CLOVA]\n'
+
+    for post in clova_posts:
+        suffix_url = post.select("a")[0].attrs["href"]
+        clova_post_title = post.select("a")[0].select(".RecentPosts_recent_title__YpXk7")[0].get_text()
+
+        url = prefix_url + suffix_url
+
+        content = f"<a href={url}>" + clova_post_title + "</a>" + "</br>\n"
+
+        clova_contents += content
+
+    return clova_contents
