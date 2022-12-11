@@ -46,20 +46,6 @@ def line_data(url):
     
     return line_contents
 
-def carrot_data(soup):
-    carrot_posts = soup.select('.postItem')
-
-    carrot_contents = '[당근마켓]\n'
-
-    for post in carrot_posts:
-        carrot_url = post.select("a")[0].attrs['data-action-value']
-        carrot_post_title = post.select("a")[0].select('.u-textScreenReader')[0].text
-        
-        content = f"<a href={carrot_url}>" + carrot_post_title + "</a>" +"</br>\n"
-        carrot_contents += content
-
-    return carrot_contents
-
 def kurly_data(soup):
 
     kurly_posts = soup.select(".post-link")
@@ -77,3 +63,17 @@ def kurly_data(soup):
         kurly_contents += content
 
     return kurly_contents
+
+def aws_data(soup):
+    aws_posts = soup.select(".blog-post")
+
+    aws_contents = '[aws]\n'
+
+    for post in aws_posts:
+        aws_url = post.select("a")[0].attrs["href"]
+        aws_post_title = post.select("h2")[0].select("span")[0].get_text()
+
+        content = f"<a href={aws_url}>" + aws_post_title + "</a>" + "</br>\n"
+        aws_contents += content
+
+    return aws_contents
